@@ -10,40 +10,40 @@ jobs:
   build-android:
     name: Build Android APK
     runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.6
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Ensure LFS assets are pulled
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          git lfs install
+          git lfs install --local
           git lfs pull
 
-      - name: Export APK with Godot CI
-        uses: firebelley/godot-export@v8.0.0
-        with:
-          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_linux.x86_64.zip
-          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_export_templates.tpz
-          relative_project_path: ./godot
-          presets_to_export: android
-          archive_output: false
+      - name: Setup export template paths
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot || true
+          mv /root/.local/share/godot/export_templates/4.6.stable \
+             ~/.local/share/godot/export_templates/4.6.stable || true
 
-      - name: Rename APK
+      - name: Import project assets
+        run: |
+          cd godot
+          godot --headless --import || true
+
+      - name: Export Android APK
         run: |
           mkdir -p build/android
-          cp godot/bin/Reia.apk build/android/Reia-Android.apk || true
+          cd godot
+          godot --headless --verbose --export-debug "android" ../build/android/Reia-Android.apk || \
+          godot --headless --verbose --export-release "android" ../build/android/Reia-Android.apk
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
