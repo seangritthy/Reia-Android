@@ -33,17 +33,11 @@ jobs:
           mv /root/.local/share/godot/export_templates/4.6.stable \
              ~/.local/share/godot/export_templates/4.6.stable || true
 
-      - name: Import project assets
-        run: |
-          cd godot
-          godot --headless --import || true
-
       - name: Export Android APK
         run: |
           mkdir -p build/android
           cd godot
-          godot --headless --verbose --export-debug "android" ../build/android/Reia-Android.apk || \
-          godot --headless --verbose --export-release "android" ../build/android/Reia-Android.apk
+          godot --headless --verbose --export-debug "android" ../build/android/Reia-Android.apk --quit
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
