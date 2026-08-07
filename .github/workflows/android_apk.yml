@@ -23,7 +23,7 @@ jobs:
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git lfs install --local
-          git lfs pull
+          git lfs pull || true
 
       - name: Setup export template paths
         run: |

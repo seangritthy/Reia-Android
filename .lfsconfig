@@ -1,5 +1,5 @@
 [lfs]
-url = https://lfs.playreia.com
+url = https://github.com/seangritthy/Reia-Android.git/info/lfs
 
 [lfs "https://lfs.playreia.com"]
 # access = "basic"
