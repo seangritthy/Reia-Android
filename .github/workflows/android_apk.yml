@@ -1,0 +1,62 @@
+name: Build and Release Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Ensure LFS assets are pulled
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git lfs install
+          git lfs pull
+
+      - name: Export APK with Godot CI
+        uses: chickenandcake/godot-export@v6
+        with:
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_export_templates.tpz"
+          relative_project_path: ./godot
+          preset: android
+          export_debug: true
+          generate_release_notes: false
+
+      - name: Rename APK
+        run: |
+          mkdir -p build/android
+          cp godot/bin/Reia.apk build/android/Reia-Android.apk || true
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Reia-Android-APK
+          path: build/android/Reia-Android.apk
+
+      - name: Attach APK to GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: build/android/Reia-Android.apk
+          tag_name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
