@@ -13,3 +13,6 @@ macos.debug.x86_64 = "res://build/bin/libreia_backend.macos.debug.universal.dyli
 macos.debug.arm64 = "res://build/bin/libreia_backend.macos.debug.universal.dylib"
 macos.release.x86_64 = "res://build/bin/libreia_backend.macos.release.universal.dylib"
 macos.release.arm64 = "res://build/bin/libreia_backend.macos.release.universal.dylib"
+
+android.debug.arm64-v8a = "res://build/bin/libreia_backend.android.debug.arm64-v8a.so"
+android.release.arm64-v8a = "res://build/bin/libreia_backend.android.release.arm64-v8a.so"
