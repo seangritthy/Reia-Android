@@ -3,6 +3,8 @@ name: Build and Release Android APK
 on:
   workflow_dispatch:
   push:
+    branches:
+      - master
     tags:
       - 'v*'
 
