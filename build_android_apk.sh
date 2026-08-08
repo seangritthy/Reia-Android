@@ -19,14 +19,34 @@ else
     echo "[✓] Debug keystore found: $KEYSTORE_PATH"
 fi
 
+if [ -d "$SCRIPT_DIR/rust" ]; then
+    echo "[+] Building Rust GDExtension backend..."
+    (cd "$SCRIPT_DIR/rust" && cargo build --release)
+    mkdir -p "$SCRIPT_DIR/godot/build/bin"
+    cp "$SCRIPT_DIR/rust/target/release/libreia_backend.so" "$SCRIPT_DIR/godot/build/bin/libreia_backend.android.release.arm64-v8a.so" 2>/dev/null || true
+    cp "$SCRIPT_DIR/rust/target/release/libreia_backend.so" "$SCRIPT_DIR/godot/build/bin/libreia_backend.android.debug.arm64-v8a.so" 2>/dev/null || true
+fi
+
 mkdir -p "$SCRIPT_DIR/godot/bin"
 
+# Determine Godot runner
+GODOT_CMD=""
 if command -v godot &> /dev/null; then
-    echo "[+] Exporting APK via Godot CLI..."
-    godot --headless --path "$SCRIPT_DIR/godot" --export-debug "android" "$SCRIPT_DIR/godot/bin/Reia.apk"
-    echo "[✓] Build complete! APK generated at: $SCRIPT_DIR/godot/bin/Reia.apk"
-else
-    echo "[!] Godot CLI was not found in PATH."
-    echo "    To complete APK export, execute Godot with:"
-    echo "    godot --headless --path \"$SCRIPT_DIR/godot\" --export-debug \"android\" \"$SCRIPT_DIR/godot/bin/Reia.apk\""
+    GODOT_CMD="godot"
+elif [ -f "$HOME/Godot_v4.6-stable_linux.arm64" ] && command -v proot-distro &> /dev/null; then
+    GODOT_CMD="proot-distro login ubuntu -- $HOME/Godot_v4.6-stable_linux.arm64"
 fi
+
+if [ -n "$GODOT_CMD" ]; then
+    echo "[+] Importing Godot project assets..."
+    $GODOT_CMD --headless --path "$SCRIPT_DIR/godot" --import || true
+
+    echo "[+] Exporting Release APK via Godot CLI..."
+    $GODOT_CMD --headless --path "$SCRIPT_DIR/godot" --export-release "android" "$SCRIPT_DIR/godot/bin/Reia-Android.apk"
+    echo "[✓] Build complete! APK generated at: $SCRIPT_DIR/godot/bin/Reia-Android.apk"
+else
+    echo "[!] Godot CLI was not found."
+    echo "    To complete APK export, execute:"
+    echo "    godot --headless --path \"$SCRIPT_DIR/godot\" --export-release \"android\" \"$SCRIPT_DIR/godot/bin/Reia-Android.apk\""
+fi
+
