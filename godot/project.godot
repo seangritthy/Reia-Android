@@ -26,7 +26,7 @@ config/version="1.1.0"
 config/tags=PackedStringArray("3d", "adventure", "game", "major", "mmo", "reia", "rpg")
 run/main_scene="uid://cwdga8uennoqt"
 config/use_custom_user_dir=true
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.6", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="uid://cjsvcwnm1cqda"
 config/icon="uid://c01csoxrxapip"
@@ -200,9 +200,9 @@ stash={
 
 [internationalization]
 
-locale/locale_filter_mode=0
+locale/translations=PackedStringArray("res://client/assets/translations.en.translation", "res://client/assets/translations.km.translation")
 locale/fallback="km"
-locale/translations=PackedStringArray("res://client/assets/translations.csv")
+locale/locale_filter_mode=0
 
 [layer_names]
 
@@ -236,11 +236,11 @@ pathfinding/max_threads=-1
 
 [physics]
 
-3d/run_on_separate_thread=true
 common/physics_jitter_fix=0.0
-3d/physics_engine="Jolt Physics"
+3d/physics_engine="GodotPhysics3D"
 common/physics_interpolation=true
 
 [rendering]
 
+renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true

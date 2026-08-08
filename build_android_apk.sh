@@ -25,6 +25,8 @@ if [ -d "$SCRIPT_DIR/rust" ]; then
     mkdir -p "$SCRIPT_DIR/godot/build/bin"
     cp "$SCRIPT_DIR/rust/target/release/libreia_backend.so" "$SCRIPT_DIR/godot/build/bin/libreia_backend.android.release.arm64-v8a.so" 2>/dev/null || true
     cp "$SCRIPT_DIR/rust/target/release/libreia_backend.so" "$SCRIPT_DIR/godot/build/bin/libreia_backend.android.debug.arm64-v8a.so" 2>/dev/null || true
+    cp "$SCRIPT_DIR/rust/target/release/libreia_backend.so" "$SCRIPT_DIR/godot/build/bin/libreia_backend.linux.release.arm64.so" 2>/dev/null || true
+    cp "$SCRIPT_DIR/rust/target/release/libreia_backend.so" "$SCRIPT_DIR/godot/build/bin/libreia_backend.linux.debug.arm64.so" 2>/dev/null || true
 fi
 
 mkdir -p "$SCRIPT_DIR/godot/bin"
