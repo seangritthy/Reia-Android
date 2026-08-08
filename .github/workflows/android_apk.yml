@@ -33,10 +33,10 @@ jobs:
           mv /root/.local/share/godot/export_templates/4.6.stable \
              ~/.local/share/godot/export_templates/4.6.stable || true
 
-      - name: Import project assets
+      - name: Import project assets and generate cache
         run: |
           cd godot
-          godot --headless --import || true
+          godot --headless --editor --quit || true
 
       - name: Export Android APK
         run: |

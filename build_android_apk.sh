@@ -38,8 +38,8 @@ elif [ -f "$HOME/Godot_v4.6-stable_linux.arm64" ] && command -v proot-distro &> 
 fi
 
 if [ -n "$GODOT_CMD" ]; then
-    echo "[+] Importing Godot project assets..."
-    $GODOT_CMD --headless --path "$SCRIPT_DIR/godot" --import || true
+    echo "[+] Importing Godot project assets and building class cache..."
+    $GODOT_CMD --headless --path "$SCRIPT_DIR/godot" --editor --quit || true
 
     echo "[+] Exporting Release APK via Godot CLI..."
     $GODOT_CMD --headless --path "$SCRIPT_DIR/godot" --export-release "android" "$SCRIPT_DIR/godot/bin/Reia-Android.apk"
