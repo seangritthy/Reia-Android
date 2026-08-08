@@ -201,6 +201,8 @@ stash={
 [internationalization]
 
 locale/locale_filter_mode=0
+locale/fallback="km"
+locale/translations=PackedStringArray("res://client/assets/translations.csv")
 
 [layer_names]
 

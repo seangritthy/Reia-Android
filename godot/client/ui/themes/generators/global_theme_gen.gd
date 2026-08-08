@@ -7,8 +7,14 @@ func _run() -> void:
 	var theme := Theme.new()
 
 	# --- Base Fonts ---
-	var title_font := preload("res://client/assets/fonts/poppins-latin-700-normal.ttf")
-	var body_font := preload("res://client/assets/fonts/roboto-latin-900-normal.ttf")
+	var title_font := preload("res://client/assets/fonts/poppins-latin-700-normal.ttf") as FontFile
+	var body_font := preload("res://client/assets/fonts/roboto-latin-900-normal.ttf") as FontFile
+	var khmer_font := preload("res://client/assets/fonts/NotoSansKhmer-Regular.ttf") as FontFile
+
+	if title_font and khmer_font:
+		title_font.fallbacks = [khmer_font]
+	if body_font and khmer_font:
+		body_font.fallbacks = [khmer_font]
 
 	theme.default_font = body_font
 	theme.default_font_size = 16

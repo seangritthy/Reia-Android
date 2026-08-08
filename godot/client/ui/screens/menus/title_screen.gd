@@ -44,10 +44,10 @@ func _on_main_play_clicked() -> void:
 	_switch_to_state(State.PLAY_MENU)
 
 func _on_settings_clicked() -> void:
-	UIModalManager.show_notification("Coming Soon!", "The settings feature isn't implemented yet but it will be soon.")
+	UIModalManager.show_notification(tr("Coming Soon!"), tr("The settings feature isn't implemented yet but it will be soon."))
 
 func _on_quit_clicked() -> void:
-	UIModalManager.ask_confirmation("Confirmation", "Are you sure you want to close the game?", _execute_quit)
+	UIModalManager.ask_confirmation(tr("Confirmation"), tr("Are you sure you want to close the game?"), _execute_quit)
 
 func _execute_quit() -> void:
 	get_tree().quit()

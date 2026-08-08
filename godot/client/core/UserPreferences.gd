@@ -10,6 +10,17 @@ func _ready() -> void:
 	var err := _config.load(PREFS_PATH)
 	if err != OK:
 		print("Failed to load user preferences: ", err)
+	TranslationServer.set_locale(get_language())
+
+func get_language() -> String:
+	return _config.get_value("Language", "locale", "km")
+
+func set_language(locale_code: String) -> void:
+	_config.set_value("Language", "locale", locale_code)
+	TranslationServer.set_locale(locale_code)
+	var err := _config.save(PREFS_PATH)
+	if err != OK:
+		print("Failed to save language preference: ", err)
 
 func save_username(username: String) -> void:
 	_config.set_value("Auth", "username", username)
