@@ -73,6 +73,22 @@ jobs:
             exit 1
           fi
 
+      - name: ZipAlign & Sign APK for Android Compatibility
+        run: |
+          BUILD_TOOLS_DIR=$(find $ANDROID_SDK_ROOT/build-tools/ -maxdepth 1 -mindepth 1 | sort -V | tail -n 1)
+          echo "Using Android Build Tools: $BUILD_TOOLS_DIR"
+          
+          # Align shared libraries on 4-byte page boundaries required by Android 11+
+          $BUILD_TOOLS_DIR/zipalign -p -f 4 build/android/Reia-Android.apk build/android/Reia-Android-aligned.apk
+          mv build/android/Reia-Android-aligned.apk build/android/Reia-Android.apk
+          
+          # Sign APK with v2 + v3 schemes
+          $BUILD_TOOLS_DIR/apksigner sign --ks ~/.android/debug.keystore --ks-pass pass:android --key-pass pass:android --ks-key-alias androiddebugkey build/android/Reia-Android.apk
+          
+          # Verify alignment and signature schemes
+          $BUILD_TOOLS_DIR/zipalign -c -v 4 build/android/Reia-Android.apk
+          $BUILD_TOOLS_DIR/apksigner verify -v build/android/Reia-Android.apk
+
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -83,8 +99,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: build/android/Reia-Android.apk
-          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || 'v1.4.0' }}
-          name: Reia Android Release ${{ github.ref_type == 'tag' && github.ref_name || 'v1.4.0' }}
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || 'v1.5.0' }}
+          name: Reia Android Release ${{ github.ref_type == 'tag' && github.ref_name || 'v1.5.0' }}
           body: "Automated Android APK Release for Reia-Android"
           draft: false
           prerelease: false
