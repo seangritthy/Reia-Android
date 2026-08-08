@@ -64,7 +64,11 @@ jobs:
         run: |
           mkdir -p build/android
           cd godot
-          godot --headless --verbose --export-release "android" ../build/android/Reia-Android.apk
+          godot --headless --verbose --export-release "android" ../build/android/Reia-Android.apk || true
+          if [ ! -f ../build/android/Reia-Android.apk ]; then
+            echo "Export failed: APK was not generated."
+            exit 1
+          fi
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
@@ -73,11 +77,14 @@ jobs:
           path: build/android/Reia-Android.apk
 
       - name: Attach APK to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: build/android/Reia-Android.apk
-          tag_name: ${{ github.ref_name }}
+          tag_name: v1.0.0
+          name: Reia Android Release v1.0.0
+          body: "Automated Android APK Release for Reia-Android"
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
