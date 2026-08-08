@@ -25,13 +25,47 @@ jobs:
           git lfs install --local
           git lfs pull || true
 
-      - name: Setup export template paths
+      - name: Setup export template paths and editor settings
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
-          mkdir -v -p ~/.config/
+          mkdir -v -p ~/.config/godot
           mv /root/.config/godot ~/.config/godot || true
           mv /root/.local/share/godot/export_templates/4.6.stable \
              ~/.local/share/godot/export_templates/4.6.stable || true
+
+          # Find Android SDK and Java SDK paths in container
+          ANDROID_SDK=""
+          for p in "$ANDROID_HOME" "$ANDROID_SDK_ROOT" "/root/android-sdk" "/usr/lib/android-sdk" "/usr/local/lib/android/sdk"; do
+            if [ -n "$p" ] && [ -d "$p" ]; then ANDROID_SDK="$p"; break; fi
+          done
+
+          JAVA_PATH=""
+          if command -v java >/dev/null 2>&1; then
+            JAVA_PATH=$(readlink -f "$(which java)" | sed 's|/bin/java||')
+          fi
+          if [ -z "$JAVA_PATH" ] || [ ! -d "$JAVA_PATH" ]; then
+            for p in "$JAVA_HOME" "/usr/lib/jvm/java-17-openjdk-amd64" "/usr/lib/jvm/default-java"; do
+              if [ -n "$p" ] && [ -d "$p" ]; then JAVA_PATH="$p"; break; fi
+            done
+          fi
+
+          mkdir -p ~/.android
+          if [ ! -f ~/.android/debug.keystore ]; then
+            keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -keystore ~/.android/debug.keystore -storepass android -dname "CN=Android Debug,O=Android,C=US" -validity 9999
+          fi
+
+          cat << EOF > ~/.config/godot/editor_settings-4.6.tres
+[gd_resource type="EditorSettings" format=3]
+
+[resource]
+export/android/android_sdk_path = "$ANDROID_SDK"
+export/android/java_sdk_path = "$JAVA_PATH"
+export/android/debug_keystore = "$HOME/.android/debug.keystore"
+export/android/debug_keystore_user = "androiddebugkey"
+export/android/debug_keystore_pass = "android"
+EOF
+          echo "Configured Godot Editor Settings:"
+          cat ~/.config/godot/editor_settings-4.6.tres
 
       - name: Export Android APK
         run: |
