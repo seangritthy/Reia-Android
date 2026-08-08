@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbwu6w7080xy8"
-path.s3tc="res://.godot/imported/Reia_reia_character_1_body_metallic_LOD1-reia_character_1_body_roughness_LOD1.png-2c0a972c1e05f2af2da2223d1766f1b4.s3tc.ctex"
 path.etc2="res://.godot/imported/Reia_reia_character_1_body_metallic_LOD1-reia_character_1_body_roughness_LOD1.png-2c0a972c1e05f2af2da2223d1766f1b4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://client/assets/models/player/Reia_reia_character_1_body_metallic_LOD1-reia_character_1_body_roughness_LOD1.png"
-dest_files=["res://.godot/imported/Reia_reia_character_1_body_metallic_LOD1-reia_character_1_body_roughness_LOD1.png-2c0a972c1e05f2af2da2223d1766f1b4.s3tc.ctex", "res://.godot/imported/Reia_reia_character_1_body_metallic_LOD1-reia_character_1_body_roughness_LOD1.png-2c0a972c1e05f2af2da2223d1766f1b4.etc2.ctex"]
+dest_files=["res://.godot/imported/Reia_reia_character_1_body_metallic_LOD1-reia_character_1_body_roughness_LOD1.png-2c0a972c1e05f2af2da2223d1766f1b4.etc2.ctex"]
 
 [params]
 

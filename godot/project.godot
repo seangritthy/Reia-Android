@@ -26,7 +26,7 @@ config/version="1.1.0"
 config/tags=PackedStringArray("3d", "adventure", "game", "major", "mmo", "reia", "rpg")
 run/main_scene="uid://cwdga8uennoqt"
 config/use_custom_user_dir=true
-config/features=PackedStringArray("4.7", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="uid://cjsvcwnm1cqda"
 config/icon="uid://c01csoxrxapip"
@@ -37,16 +37,16 @@ buses/default_bus_layout="uid://82gy4qqnnk7o"
 
 [autoload]
 
-SoundManager="*uid://rvcpqiv8ntxa"
-MapDatabase="*uid://3y3cbaw6ewh2"
+SoundManager="*res://addons/sound_manager/sound_manager.gd"
+MapDatabase="*res://client/core/MapDatabase.gd"
 ECS="*uid://dfqwl5njvdnmq"
-EntityMap="*uid://bl6ovve7emito"
-UIEventBus="*uid://b42f7eitus3fj"
-UIModalManager="*uid://cmnlm267uc83r"
-GameOrchestrator="*uid://wfffbfiau32v"
-NetworkRouter="*uid://bcct6em86mvjj"
-SceneManager="*uid://cc6iusoi34bpu"
-UserPreferences="*uid://3krmnajq1oo5"
+EntityMap="*res://core/EntityMap.gd"
+UIEventBus="*res://client/ui/core/UIEventBus.gd"
+UIModalManager="*res://client/ui/core/UIModalManager.gd"
+GameOrchestrator="*res://core/GameOrchestrator.gd"
+NetworkRouter="*res://core/features/network/NetworkRouter.gd"
+SceneManager="*res://client/core/SceneManager.gd"
+UserPreferences="*res://client/core/UserPreferences.gd"
 
 [debug]
 

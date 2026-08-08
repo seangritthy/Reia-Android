@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bicke4cl5n58v"
-path.s3tc="res://.godot/imported/Reia_reia_character_1_head_metallic_LOD1-reia_character_1_head_roughness_LOD1.png-5ff790d0d0a85a57bee957130ef89122.s3tc.ctex"
 path.etc2="res://.godot/imported/Reia_reia_character_1_head_metallic_LOD1-reia_character_1_head_roughness_LOD1.png-5ff790d0d0a85a57bee957130ef89122.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://client/assets/models/player/Reia_reia_character_1_head_metallic_LOD1-reia_character_1_head_roughness_LOD1.png"
-dest_files=["res://.godot/imported/Reia_reia_character_1_head_metallic_LOD1-reia_character_1_head_roughness_LOD1.png-5ff790d0d0a85a57bee957130ef89122.s3tc.ctex", "res://.godot/imported/Reia_reia_character_1_head_metallic_LOD1-reia_character_1_head_roughness_LOD1.png-5ff790d0d0a85a57bee957130ef89122.etc2.ctex"]
+dest_files=["res://.godot/imported/Reia_reia_character_1_head_metallic_LOD1-reia_character_1_head_roughness_LOD1.png-5ff790d0d0a85a57bee957130ef89122.etc2.ctex"]
 
 [params]
 

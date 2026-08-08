@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dsqyxq6pq2jhf"
-path.s3tc="res://.godot/imported/Reia_reia_character_1_body_emissive_LOD1.png-0eb023b93f5d67598b90fbc326de46b7.s3tc.ctex"
 path.etc2="res://.godot/imported/Reia_reia_character_1_body_emissive_LOD1.png-0eb023b93f5d67598b90fbc326de46b7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -16,7 +15,7 @@ generator_parameters={
 [deps]
 
 source_file="res://client/assets/models/player/Reia_reia_character_1_body_emissive_LOD1.png"
-dest_files=["res://.godot/imported/Reia_reia_character_1_body_emissive_LOD1.png-0eb023b93f5d67598b90fbc326de46b7.s3tc.ctex", "res://.godot/imported/Reia_reia_character_1_body_emissive_LOD1.png-0eb023b93f5d67598b90fbc326de46b7.etc2.ctex"]
+dest_files=["res://.godot/imported/Reia_reia_character_1_body_emissive_LOD1.png-0eb023b93f5d67598b90fbc326de46b7.etc2.ctex"]
 
 [params]
 
