@@ -66,8 +66,10 @@ with zipfile.ZipFile(output_apk, "a", compression=zipfile.ZIP_DEFLATED) as z:
             full_p = os.path.join(root, f)
             if not os.path.exists(full_p):
                 continue
-            rel_p = os.path.relpath(full_p, godot_dir)
             z.write(full_p, os.path.join("assets", rel_p))
+aligned_apk = output_apk + ".aligned"
+subprocess.run(f"zipalign -p -f 4 {output_apk} {aligned_apk}", shell=True, check=True)
+os.replace(aligned_apk, output_apk)
 subprocess.run(f"apksigner sign --ks {keystore} --ks-pass pass:android --ks-key-alias androiddebugkey {output_apk}", shell=True, check=True)
 '
     fi
