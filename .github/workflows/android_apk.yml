@@ -83,9 +83,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: build/android/Reia-Android.apk
-          tag_name: v1.1.0
-          name: Reia Android Release v1.1.0
-          body: "Automated Android APK Release v1.1.0 for Reia-Android"
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || 'v1.2.0' }}
+          name: Reia Android Release ${{ github.ref_type == 'tag' && github.ref_name || 'v1.2.0' }}
+          body: "Automated Android APK Release for Reia-Android"
           draft: false
           prerelease: false
         env:
