@@ -15,5 +15,5 @@ func _ready() -> void:
 	UIUtils.safe_connect(UIEventBus.world.hide_interaction_prompt, hide, "InteractionPrompt hide_interaction_prompt")
 
 func _show_prompt(item_name: String, verb: String) -> void:
-	_label.text = "%s\n[E] %s" % [item_name, verb]
+	_label.text = "%s\n[E] %s" % [tr(item_name), tr(verb)]
 	show()
