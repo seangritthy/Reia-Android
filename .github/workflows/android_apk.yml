@@ -42,6 +42,7 @@ jobs:
         run: |
           mkdir -p build/android
           cd godot
+          git checkout project.godot
           godot --headless --verbose --export-release "android" ../build/android/Reia-Android.apk
 
       - name: Upload APK Artifact
